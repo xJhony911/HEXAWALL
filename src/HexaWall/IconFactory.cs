@@ -53,6 +53,7 @@ internal static class IconFactory
         return (Icon)icon.Clone();
     }
 
+#if !LEAN
     public static System.Windows.Media.ImageSource WpfIcon()
     {
         using var icon = Create(); using var stream = new MemoryStream(); icon.Save(stream); stream.Position = 0;
@@ -61,6 +62,7 @@ internal static class IconFactory
         source.Freeze(); return source;
     }
 
+#endif
     public static Bitmap Glyph(MenuGlyph glyph, int size = 24)
     {
         var bitmap = new Bitmap(size, size, PixelFormat.Format32bppArgb);

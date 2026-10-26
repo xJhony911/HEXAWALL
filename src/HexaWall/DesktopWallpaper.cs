@@ -45,8 +45,10 @@ internal sealed class DesktopWallpaper : IDisposable
         if (!File.Exists(path)) throw new FileNotFoundException("La imagen ya no existe.", path);
         api.SetPosition(4); // DWPOS_FILL. New selections deliberately use Fill.
         api.SetWallpaper(monitor, Path.GetFullPath(path));
+#if !LEAN
         try { WallpaperFile.Prune(Read().Select(m => m.Path)); }
         catch (COMException e) { Log.Error(e); }
+#endif
     }
     public void Dispose() => Marshal.FinalReleaseComObject(api);
 }
