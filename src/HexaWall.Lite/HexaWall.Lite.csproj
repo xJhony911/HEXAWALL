@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks><DefineConstants>$(DefineConstants);LEAN</DefineConstants>
+    <AssemblyName>HexaWall</AssemblyName><Version>1.2.0</Version>
+    <ApplicationManifest>../HexaWall/app.manifest</ApplicationManifest>
+    <ApplicationIcon>../../assets/hexawall.ico</ApplicationIcon>
+    <PublishSingleFile>true</PublishSingleFile><EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+    <PublishTrimmed>false</PublishTrimmed><ServerGarbageCollection>false</ServerGarbageCollection>
+    <DebugType>embedded</DebugType><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../HexaWall/Settings.cs" Link="Settings.cs" />
+    <Compile Include="../HexaWall/Native.cs" Link="Native.cs" />
+    <Compile Include="../HexaWall/HotKeyWindow.cs" Link="HotKeyWindow.cs" />
+    <Compile Include="../HexaWall/IconFactory.cs" Link="IconFactory.cs" />
+    <Compile Include="../HexaWall/DarkMenuRenderer.cs" Link="DarkMenuRenderer.cs" />
+    <Compile Include="../HexaWall/StartupRegistration.cs" Link="StartupRegistration.cs" />
+    <Compile Include="../HexaWall/DesktopWallpaper.cs" Link="DesktopWallpaper.cs" />
+    <Compile Include="../HexaWall/MemorySnapshot.cs" Link="MemorySnapshot.cs" />
+  </ItemGroup>
+</Project>
