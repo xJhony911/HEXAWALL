@@ -1,0 +1,167 @@
+{
+  "PeakPrivateWorkingSetMiB": 29.38671875,
+  "PeakPrivateCommitMiB": 34.1328125,
+  "PeakWorkingSetMiB": 85.96875,
+  "Measurements": [
+    {
+      "Stage": 0,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 53.6640625,
+        "PrivateCommitMiB": 12.734375,
+        "PrivateWorkingSetMiB": 9.359375
+      },
+      "Visible": null
+    },
+    {
+      "Stage": 1,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 73.23828125,
+        "PrivateCommitMiB": 25.828125,
+        "PrivateWorkingSetMiB": 21.12890625
+      },
+      "Visible": 15
+    },
+    {
+      "Stage": 2,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 72.8671875,
+        "PrivateCommitMiB": 25.34765625,
+        "PrivateWorkingSetMiB": 21.8046875
+      },
+      "Visible": 15
+    },
+    {
+      "Stage": 3,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 75.5234375,
+        "PrivateCommitMiB": 27.39453125,
+        "PrivateWorkingSetMiB": 22.33984375
+      },
+      "Visible": 15
+    },
+    {
+      "Stage": 4,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 77.34375,
+        "PrivateCommitMiB": 26.68359375,
+        "PrivateWorkingSetMiB": 21.7734375
+      },
+      "Visible": 4
+    },
+    {
+      "Stage": 5,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 77.00390625,
+        "PrivateCommitMiB": 26.13671875,
+        "PrivateWorkingSetMiB": 21.5859375
+      },
+      "Visible": 4
+    },
+    {
+      "Stage": 6,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 83.90625,
+        "PrivateCommitMiB": 28.171875,
+        "PrivateWorkingSetMiB": 24.36328125
+      },
+      "Visible": 15
+    },
+    {
+      "Stage": 7,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 84.09375,
+        "PrivateCommitMiB": 28.41796875,
+        "PrivateWorkingSetMiB": 23.76953125
+      },
+      "Visible": 15
+    },
+    {
+      "Stage": 8,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 71.109375,
+        "PrivateCommitMiB": 20.00390625,
+        "PrivateWorkingSetMiB": 14.7578125
+      },
+      "Visible": null
+    },
+    {
+      "Stage": 9,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 82.33984375,
+        "PrivateCommitMiB": 30.8515625,
+        "PrivateWorkingSetMiB": 25.5
+      },
+      "Visible": 15
+    },
+    {
+      "Stage": 10,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 82.4765625,
+        "PrivateCommitMiB": 31,
+        "PrivateWorkingSetMiB": 26.09375
+      },
+      "Visible": 15
+    },
+    {
+      "Stage": 11,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 72.87890625,
+        "PrivateCommitMiB": 22.04296875,
+        "PrivateWorkingSetMiB": 16.82421875
+      },
+      "Visible": null
+    },
+    {
+      "Stage": 12,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 76.84375,
+        "PrivateCommitMiB": 22.7578125,
+        "PrivateWorkingSetMiB": 18.1875
+      },
+      "Visible": null
+    },
+    {
+      "Stage": 13,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 75.4765625,
+        "PrivateCommitMiB": 21.09765625,
+        "PrivateWorkingSetMiB": 16.56640625
+      },
+      "Visible": null
+    },
+    {
+      "Stage": 14,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 76.2734375,
+        "PrivateCommitMiB": 21.90234375,
+        "PrivateWorkingSetMiB": 17.30859375
+      },
+      "Visible": null
+    },
+    {
+      "Stage": 15,
+      "Memory": {
+        "Id": 32496,
+        "WorkingSetMiB": 75.79296875,
+        "PrivateCommitMiB": 21.41796875,
+        "PrivateWorkingSetMiB": 17.359375
+      },
+      "Visible": null
+    }
+  ]
+}
