@@ -1,125 +1,82 @@
-<p align="center"><img src="assets/hexawall.svg" width="96" alt="HEXAWALL" /></p>
+<div align="center">
+<img src="assets/hexawall.svg" width="90" alt="HEXAWALL">
 
-# HEXAWALL 1.1
+# HEXAWALL 1.2 · Lite
 
 ![Windows 11](https://img.shields.io/badge/Windows-11-0078D4)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4)
 ![MIT](https://img.shields.io/badge/license-MIT-green)
 
-Selector de wallpapers con fondo transparente, panal, carrusel 3D y tarjetas. Bandeja nativa, configuración gráfica y transiciones detrás de los iconos del escritorio.
+**Fondos de pantalla desde una bandeja ligera. Sin WPF, Skia ni bucle GPU residente.**
 
-## Probar la aplicación
+[Descargar instalador o portable](https://github.com/xJhony911/HEXAWALL/releases/latest)
+</div>
 
-1. Cierra la versión anterior desde su bandeja → **Salir**.
-2. Extrae el ZIP portable 1.1 y abre `HexaWall.exe`.
-3. Clic derecho en el hexágono cian de la bandeja → **Configuración…** → **Examinar…**.
-4. Selecciona la carpeta de wallpapers. Los cambios se guardan automáticamente.
-5. **Alt + W** abre el selector en el monitor donde está el cursor. Si elegiste otro atajo, se muestra en Configuración y en el tooltip de la bandeja.
+## Elige tu edición
 
-Dentro del selector: flechas/WASD, Enter o clic para aplicar, Esc para cerrar, Tab para cambiar diseño, 1/2/3 para cambiar transición. **F1** o el engranaje abre Configuración.
+- [1.2 Lite](https://github.com/xJhony911/HEXAWALL/releases/tag/v1.2.0): menor consumo, carrusel 2D y cambio directo de fondo.
+- [1.1 con efectos](https://github.com/xJhony911/HEXAWALL/releases/tag/v1.1.0): interfaz WPF, CoverFlow 3D y transiciones de escritorio; mayor consumo de memoria.
 
-Los originales se leen del primer nivel de la carpeta, sin subcarpetas: JPG, JPEG, PNG, WebP y BMP. Windows usa Fill para la imagen elegida. Las imágenes WebP se convierten a JPEG antes de asignarlas al escritorio.
+Ambas ediciones siguen disponibles. Cierra una antes de ejecutar la otra; comparten configuración y atajo.
 
-## Los cinco cambios de esta versión
+**Avisos de Windows:** los binarios de GitHub aún no tienen firma Authenticode. SmartScreen puede mostrar advertencias y Smart App Control puede bloquearlos. Publicar en GitHub no elimina estas comprobaciones. No se desactivan protecciones ni se garantiza un arranque sin avisos. La firma de confianza queda pendiente.
 
-| Área | Implementación |
-|---|---|
-| Overlay | Ventana WPF `AllowsTransparency=True`, sin bordes, ajustada a `Screen.Bounds` físicos del monitor activo. Fondo ARGB `140,10,12,16`, HUD y engranaje flotantes. |
-| Nitidez | PerMonitorV2; caché WebP **960 × 540**, calidad 94; selección activa desde el original con **1280 × 720 mínimo**, ajustada a DPI hasta 3840 × 2160; filtros High/HighQuality. |
-| Fluidez | `CompositionTarget.Rendering`, reloj Stopwatch y convergencia exponencial por deltaTime. Posición, escala y opacidad no dependen de un temporizador de 15 ms. Se desuscribe al estabilizarse u ocultarse. |
-| Bandeja | ICO de ocho tamaños generado en memoria desde geometría vectorial; hexágono `#2CE8C6`. Menú oscuro, hover y borde personalizados, con iconos dibujados para cada opción. |
-| Configuración | Ventana oscura con carpeta, captura de atajo, diseño, transición, duración, monitores, pausa Gaming y autoinicio HKCU. Guardado inmediato con validación y rollback. |
+## Uso
 
-El fondo tiene transparencia real hacia lo que se muestra detrás de la ventana. No se utiliza una captura estática del escritorio, ni una clave de color, ni opacidad global que desvanezca también las imágenes. Se eligió el oscurecimiento transparente solicitado; no se requiere acrílico.
+Cierra la versión anterior desde la bandeja antes de instalar o abrir esta versión. Ejecuta `HexaWall.exe`, pulsa **Alt + W** y elige una imagen. Tu atajo personalizado y carpeta existente se conservan. **F1**, el engranaje o el menú de la bandeja abren Configuración. **Examinar…** permite elegir la carpeta; los cambios se guardan automáticamente.
 
-Las siguientes capturas tienen alfa y usan paisajes sintéticos de prueba; el visor puede mostrarlas sobre negro:
+Flechas / WASD navegan, Enter o clic aplican, Tab cambia entre Honeycomb, CoverFlow y Cards; Esc cierra. El atajo también cierra un selector abierto. Se examina el primer nivel de la carpeta, hasta 20.000 archivos.
 
-![CoverFlow](assets/previews/CoverFlow.png)
+## Cambio de prioridades en 1.2
 
-![Configuración](assets/previews/Settings.png)
+Esta versión prioriza el objetivo de **menos de 50 MB en la memoria privada residente mostrada habitualmente en la pestaña Procesos del Administrador de tareas**, también durante el selector. Se reemplazó la interfaz WPF por WinForms/Win32, una superficie alfa GDI acotada y Windows Imaging Component (WIC).
 
-## Configuración gráfica
+- Fondo real del escritorio con oscurecimiento nativo del monitor completo; los elementos flotan sin caja gris.
+- Superficie de contenido limitada a 1440×860 píxeles físicos, incluso en monitores 4K. El resto del monitor sigue oscurecido.
+- Hasta 18 miniaturas visibles; residentes de 320×180, imagen seleccionada hasta 960×540. Caché JPEG en disco de hasta 960 píxeles, limitada a 128 MiB.
+- Un decodificador secuencial; solicitudes obsoletas se descartan y todas las imágenes/DIB se destruyen al cerrar.
+- Sin compresión interna del Single-File: ocupa más espacio en disco, pero evita descomprimir ensamblados en memoria privada. El ZIP y el instalador sí se comprimen.
+- Bandeja y configuración oscuras, icono cian, atajo nativo, watcher de carpeta y autoinicio opcional en HKCU.
 
-- **Carpeta:** Examinar abre el selector nativo. Cambiar la carpeta sustituye el watcher y la caché activa sin reiniciar.
-- **Atajo:** haz clic en el campo y pulsa una combinación con Ctrl, Alt, Shift o Win. Esc cancela. El registro se suspende durante la captura. Si la nueva combinación está ocupada, se conserva/restaura la anterior. Si el atajo inicial ya está ocupado al arrancar, la bandeja sigue disponible para corregirlo.
-- **Diseño:** Honeycomb, CoverFlow o Cards. CoverFlow usa una cámara de perspectiva y planos 3D con UV correctas.
-- **Transición:** Hexagon Wipe, Circle Expand o Fade. Duración de 100 a 2000 ms.
-- **Monitores:** todos, o el monitor donde se confirma la selección con el cursor. El modo de ajuste Fill de Windows es global.
-- **Gaming:** permite activar o desactivar la pausa de animaciones y la liberación de imágenes en pantalla completa. Las ventanas del propio proceso se excluyen de esta detección.
-- **Autoinicio:** escribe/elimina solo `HexaWall` en `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`, con la ruta del ejecutable entre comillas. No requiere administrador. Si mueves el portable, desactiva y vuelve a activar esta opción desde su ubicación nueva.
+**Efectos simplificados:** CoverFlow es un carrusel 2D con escala y atenuación, sin perspectiva 3D real. El cambio de wallpaper es directo: se desactivaron las transiciones WorkerW, las sombras GPU y el objetivo de 144/165 FPS para respetar la prioridad de memoria. Suavizado temporal del carrusel durante el desplazamiento; ningún temporizador de animación queda activo en reposo.
 
-Los datos están en `%LOCALAPPDATA%\HexaWall`; `HEXAWALL_DATA_HOME` permite una ubicación aislada para pruebas. La carpeta `thumbnails-v2-960x540` invalida de forma natural las miniaturas antiguas de 400 px. Las miniaturas v1 no se reutilizan ni se borran automáticamente.
+La configuración conserva carpeta, atajo, diseño, todos los monitores, pausa en juegos y autoinicio. Los campos antiguos de transición siguen en JSON para compatibilidad, pero Lite no los ejecuta.
 
-## Compilar y probar
+## Memoria: cómo comprobarla
 
-Requisitos: Windows 11 x64 y SDK .NET **8.0.426**. Inno Setup 6.4.3 o posterior de la serie 6 para generar el instalador.
+Consulta [el informe de memoria](docs/MEMORY-1.2.md). Se reportan por separado memoria privada residente, compromiso privado y working set total. El total incluye DLL compartidas y **no** es la misma métrica que la captura de Procesos. No se fuerza `EmptyWorkingSet`, no se limita artificialmente el working set y no se ocultan procesos auxiliares: Lite funciona en **un único proceso**.
 
-```powershell
-dotnet restore tests/HexaWall.Tests/HexaWall.Tests.csproj --locked-mode --configfile NuGet.Config
-dotnet run --project tests/HexaWall.Tests/HexaWall.Tests.csproj -c Release --no-restore
-dotnet restore src/HexaWall/HexaWall.csproj -r win-x64 -p:SelfContained=true --locked-mode --configfile NuGet.Config
-dotnet publish src/HexaWall/HexaWall.csproj -c Release -r win-x64 --self-contained true --no-restore -p:Version=1.1.0 -o artifacts/publish
-& 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' '/DAppVersion=1.1.0' installer/HexaWall.iss
-```
+Las cifras son mediciones, no un límite impuesto por Windows. Otro monitor, codecs de terceros, cantidad de archivos o nuevas versiones del runtime pueden cambiar el consumo. Imágenes de más de 32 megapíxeles se rechazan antes de copiar píxeles; una imagen no compatible conserva su casilla sin bloquear la aplicación.
 
-Prueba visual opcional, con imágenes sintéticas y registro de autoinicio simulado:
+PNG/JPEG/BMP se aplican a su resolución original. WebP requiere un codec WIC disponible en Windows y se convierte a JPEG de hasta 1920×1080 para el fondo, evitando grandes buffers. El original no se modifica. La conversión se guarda en `%LOCALAPPDATA%\HexaWall\wallpapers-lite`.
+
+## Capturas
+
+Son capturas con alfa de imágenes sintéticas; el visor puede mostrarlas sobre negro.
+
+![Honeycomb](assets/previews-lite/Honeycomb.png)
+![CoverFlow](assets/previews-lite/CoverFlow.png)
+![Configuración](assets/previews-lite/Settings.png)
+
+## Compilar
+
+Windows 11 x64 y SDK .NET 8.0.426. Desde la raíz:
 
 ```powershell
-dotnet run --project tests/HexaWall.Tests/HexaWall.Tests.csproj -c Release -- --ui "$PWD/artifacts/preview"
+dotnet restore tests/HexaWall.Lite.Tests/HexaWall.Lite.Tests.csproj --locked-mode --configfile NuGet.Config
+dotnet run --project tests/HexaWall.Lite.Tests -c Release --no-restore
+dotnet restore src/HexaWall.Lite/HexaWall.Lite.csproj -r win-x64 -p:SelfContained=true --locked-mode --configfile NuGet.Config
+dotnet publish src/HexaWall.Lite/HexaWall.Lite.csproj -c Release -r win-x64 --self-contained true --no-restore -o artifacts/publish
+& 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' '/DAppVersion=1.2.0' installer/HexaWall.iss
 ```
 
-Abre y cierra ventanas de prueba; no aplica wallpapers ni modifica la entrada real de inicio de Windows. Verifica alfa, bounds, reapertura y guardado desde los controles.
-
-El ICO incrustado del ejecutable se puede regenerar con la misma función vectorial que usa la bandeja:
-
-```powershell
-dotnet run --project tests/HexaWall.Tests/HexaWall.Tests.csproj -c Release -- --write-icon "$PWD/assets/hexawall.ico"
-```
+El workflow publica instalador, portable, ejecutable y SHA256SUMS al crear un tag `vMAJOR.MINOR.PATCH`. Los ejecutables no tienen firma Authenticode.
 
 ## Estructura
 
-```text
-src/HexaWall/
-  Program.cs                         Bandeja y ciclo de vida WinForms/WPF
-  OverlayWindow.cs                   Fullscreen transparente, layouts y deltaTime
-  SettingsWindow.xaml[.cs]           GUI oscura y captura de atajos
-  ThumbnailCache.cs                 Watcher, WebP 960×540 y LRU
-  SelectedPreview.cs                 Decodificador prioritario de la selección
-  ImageLoader.cs                     Skia High, EXIF y BitmapSources congelados
-  IconFactory.cs                     ICO multirresolución y pictogramas
-  DarkMenuRenderer.cs                Tema del menú nativo
-  Settings.cs, StartupRegistration.cs Persistencia y transacciones de configuración
-  HotKeyWindow.cs, GamingMonitor.cs   Atajos y detección por eventos
-  Native.cs, WorkerW.cs               P/Invoke e integración con Explorer
-  DesktopWallpaper.cs               COM multimonitor
-  GpuView.cs, Transition*.cs          Transiciones Skia/WGL del escritorio
-  WallpaperFile.cs                   Conversión persistente de WebP
-assets/                              Iconos, capturas y licencias
-installer/HexaWall.iss
-.github/workflows/release.yml
-tests/HexaWall.Tests/
-docs/ARCHITECTURE.md, VALIDATION.md, CHANGES-1.1.md
-```
+- `src/HexaWall.Lite/`: aplicación distribuida desde 1.2, sin dependencias NuGet externas.
+- `src/HexaWall/`: implementación WPF/Skia anterior y clases compartidas de Win32, iconos, configuración y wallpaper COM. Su proyecto se conserva como referencia; no forma parte del ejecutable Lite.
+- `tests/HexaWall.Lite.Tests/`: pruebas de WIC, alfa, caché, atajos y configuración.
+- `installer/`, `.github/workflows/`, `assets/`, `docs/`: distribución, recursos e informes.
 
-`OverlayForm.cs` se eliminó y fue reemplazado por `OverlayWindow.cs`. Si integras archivos a mano sobre v1.0, elimina ese archivo antiguo. El ZIP fuente contiene el árbol completo correcto.
-
-## Rendimiento y límites
-
-La UI no impone un tope de 60 FPS. Su reloj es el compositor de WPF/Windows; la frecuencia efectiva depende del monitor, la GPU, el driver, RDP y la carga. Se probó que la interpolación produce el mismo resultado temporal a 60/144/165 Hz; **eso no es una medición física de 165 FPS**.
-
-Las capturas y controles se validaron con WPF tier 2. El consumo de RAM aumenta con miniaturas más grandes y WPF: la caché de miniaturas es de 64 MiB por defecto y las imágenes visibles pueden retener referencias adicionales. No se afirma el objetivo antiguo de <35 MB ni apertura garantizada <16 ms. Las imágenes originales pequeñas no ganan detalle real por reescalarlas.
-
-El motor WorkerW se conserva: utiliza una jerarquía no documentada de Explorer, valida el host y aplica un fondo estático si no está disponible. Su compatibilidad debe comprobarse en las versiones y topologías de monitores de destino. La detección de fullscreen puede incluir vídeos o presentaciones; el toggle permite desactivarla. HDR, slideshow, vídeo y fondos distintos por escritorio virtual no están implementados.
-
-Consulta [validación](docs/VALIDATION.md) y [arquitectura](docs/ARCHITECTURE.md).
-
-## Publicar
-
-El workflow compila, prueba, genera el Single-File y el instalador, empaqueta licencias/checksums y publica una Release para un tag estable:
-
-```powershell
-git tag v1.1.0
-git push origin v1.1.0
-```
-
-`workflow_dispatch` genera artefactos sin publicar una Release. Los ejecutables se distribuyen sin firma Authenticode. La licencia del proyecto es [MIT](LICENSE); las de sus dependencias se incluyen en los paquetes.
+Licencia [MIT](LICENSE). Las bibliotecas de .NET incluidas conservan sus respectivas licencias.
